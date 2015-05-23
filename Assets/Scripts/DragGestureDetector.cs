@@ -7,7 +7,7 @@ public class DragGestureDetector : MonoBehaviour
 	private bool m_isTouching;
 	private Vector3 m_lastTouchPosition;
 
-	public event System.Action<Vector3> DragStarged;
+	public event System.Action<Vector3> DragStarted;
 	public event System.Action<Vector3> DragMoved;
 	public event System.Action<Vector3> DragEnded;
 
@@ -49,8 +49,8 @@ public class DragGestureDetector : MonoBehaviour
 
 	protected void OnDragStarted(Vector3 touchPosition)
 	{
-		if (DragStarged != null)
-			DragStarged(touchPosition);
+		if (DragStarted != null)
+			DragStarted(touchPosition);
 	}
 
 	protected void OnDragMoved(Vector3 touchPosition)

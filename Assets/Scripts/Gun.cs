@@ -17,11 +17,24 @@ public class Gun : MonoBehaviour
 		for (int i = 0; i < m_reloadStages.Length; i++)
 			m_reloadStages[i].gameObject.SetActive(i == index);
 
-		m_reloadStages[index].ProgressChanged += HandleProgressChanged;
+		m_reloadStages[index].ProgressChanged += HandleReloadStageProgressChanged;
+		m_reloadStages[index].Finished += HandleReloadStageFinished;
 	}
 
-	private void HandleProgressChanged(float progress)
+	private void NextStage()
+	{
+		m_currentReloadStageIndex++;
+
+		SetReloadStage(m_currentReloadStageIndex);
+	}
+
+	private void HandleReloadStageProgressChanged(float progress)
 	{
 
+	}
+
+	private void HandleReloadStageFinished()
+	{
+		NextStage();
 	}
 }
