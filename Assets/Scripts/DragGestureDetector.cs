@@ -49,24 +49,18 @@ public class DragGestureDetector : MonoBehaviour
 
 	protected void OnDragStarted(Vector3 touchPosition)
 	{
-		Debug.Log("OnDragStarted");
-
 		if (DragStarged != null)
 			DragStarged(touchPosition);
 	}
 
 	protected void OnDragMoved(Vector3 touchPosition)
 	{
-		Debug.Log("OnDragMoved");
-
 		if (DragMoved != null)
 			DragMoved(touchPosition);
 	}
 
 	protected void OnDragEnded(Vector3 touchPosition)
 	{
-		Debug.Log("OnDragEnded");
-
 		if (DragEnded != null)
 			DragEnded(touchPosition);
 	}
