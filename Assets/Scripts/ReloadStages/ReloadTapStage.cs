@@ -3,9 +3,6 @@ using System.Collections;
 
 public class ReloadTapStage : ReloadStage
 {
-	public override event System.Action Finished;
-	public override event System.Action<float> ProgressChanged;
-
 	public Collider m_tapTarget;
 
 	public override void Update()
@@ -19,8 +16,7 @@ public class ReloadTapStage : ReloadStage
 
 	private void OnFinished()
 	{
-		if (Finished != null)
-			Finished();
+		Finish();
 	}
 
 	private bool CheckTap(Vector3 tapPosition)

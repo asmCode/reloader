@@ -11,15 +11,18 @@ public class ReloadMoveStraightStage : ReloadStage
 	private bool m_isMoving;
 	private Vector3 m_moveStartPosition;
 
-	public override event System.Action Finished;
-	public override event System.Action<float> ProgressChanged;
+	private float m_goingBackCurrentVelocity;
 
 	public override void Update()
 	{
 		m_reloadProgress = Mathf.Clamp01(m_reloadProgress);
 
-		if (ProgressChanged != null)
-			ProgressChanged(m_reloadProgress);
+		if (!m_isMoving && m_reloadProgress != 0)
+		{
+			m_reloadProgress = Utils.LinearDamp(m_reloadProgress, 0.0f, Time.deltaTime * 20);
+		}
+
+		SetProgress(m_reloadProgress);
 
 		m_gunPartMovement.SetReloadProgress(m_reloadProgress);
 	}
@@ -45,8 +48,7 @@ public class ReloadMoveStraightStage : ReloadStage
 
 	private void OnFinished()
 	{
-		if (Finished != null)
-			Finished();
+		Finish();
 	}
 
 	private void HandleDragStarted(Vector3 touchPosition)
@@ -56,6 +58,7 @@ public class ReloadMoveStraightStage : ReloadStage
 		{
 			m_isMoving = true;
 			m_moveStartPosition = touchPosition;
+			//m_baseObjectToMovePosition = m_objectToMove.gameObject.transform.position;
 		}
 	}
 
