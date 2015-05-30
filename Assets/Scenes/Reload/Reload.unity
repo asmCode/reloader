@@ -269,10 +269,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gunPartMovement: {fileID: 0}
-  m_ammoBox: {fileID: 1309160144}
-  m_magazine: {fileID: 2032193723}
+  m_ammoBoxObject: {fileID: 1309160144}
+  m_magazineObject: {fileID: 2032193723}
   m_bulletPrefab: {fileID: 100000, guid: b6a53d2c8df67cd43bef1881645e7301, type: 3}
   m_pistolMagazine: {fileID: 2032193726}
+  m_ammoBox: {fileID: 1309160146}
 --- !u!1 &523063039 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: 0d26b28152d60564699fde4a4c1442ac, type: 3}
@@ -1032,7 +1033,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0d26b28152d60564699fde4a4c1442ac, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d26b28152d60564699fde4a4c1442ac, type: 3}
@@ -1195,6 +1196,7 @@ MonoBehaviour:
   m_firstBulletTransform: {fileID: 943739278}
   m_secondBulletTransform: {fileID: 1091103926}
   m_bulletsContainer: {fileID: 1569504451}
+  m_capacity: 8
 --- !u!95 &2032193727
 Animator:
   serializedVersion: 3

@@ -7,11 +7,25 @@ public class PistolMagazine : MonoBehaviour
 	public Transform m_firstBulletTransform;
 	public Transform m_secondBulletTransform;
 	public Transform m_bulletsContainer;
+	public int m_capacity;
 
 	private List<GameObject> m_bullets = new List<GameObject>();
 
+	public int Capacity
+	{
+		get { return m_capacity; }
+	}
+
+	public bool IsFullyLoaded
+	{
+		get { return Capacity == m_bullets.Count; }
+	}
+
 	public void LoadBullet(GameObject bullet)
 	{
+		if (IsFullyLoaded)
+			return;
+
 		if (m_bullets.Count > 0)
 			ShiftBulletsContainerDown();
 

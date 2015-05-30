@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AmmoBox : MonoBehaviour
 {
@@ -9,6 +10,17 @@ public class AmmoBox : MonoBehaviour
 	public Transform m_bulletTransform;
 	public int m_rows;
 	public int m_columns;
+
+	private Queue<GameObject> m_bullets = new Queue<GameObject>();
+
+	public void RemoveBulletFromBox()
+	{
+		if (m_bullets.Count == 0)
+			return;
+
+		GameObject bullet = m_bullets.Dequeue();
+		Destroy(bullet.gameObject);
+	}
 
 	private void Awake()
 	{
@@ -33,6 +45,8 @@ public class AmmoBox : MonoBehaviour
 				bullet.transform.parent = transform;
 				bullet.transform.localPosition = m_bulletTransform.localPosition + new Vector3(x, 0, z);
 				bullet.transform.localRotation = m_bulletTransform.localRotation;
+
+				m_bullets.Enqueue(bullet);
 
 				x += columnShift;
 			}

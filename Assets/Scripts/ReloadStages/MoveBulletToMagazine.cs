@@ -4,10 +4,11 @@ using System.Collections;
 public class MoveBulletToMagazine : ReloadStage
 {
 	#region Inspector
-	public GameObject m_ammoBox;
-	public GameObject m_magazine;
+	public GameObject m_ammoBoxObject;
+	public GameObject m_magazineObject;
 	public GameObject m_bulletPrefab;
 	public PistolMagazine m_pistolMagazine;
+	public AmmoBox m_ammoBox;
 	#endregion
 
 	private Drag m_drag;
@@ -15,7 +16,7 @@ public class MoveBulletToMagazine : ReloadStage
 
 	private void Awake()
 	{
-		m_drag = new Drag(m_ammoBox, m_magazine);
+		m_drag = new Drag(m_ammoBoxObject, m_magazineObject);
 	}
 
 	private void OnEnable()
@@ -56,6 +57,8 @@ public class MoveBulletToMagazine : ReloadStage
 	private void HandleDragStarted(Vector3 position)
 	{
 		CreateBullet(position);
+
+		m_ammoBox.RemoveBulletFromBox();
 	}
 
 	private void HandleDragMoved(Vector3 position)
@@ -67,6 +70,9 @@ public class MoveBulletToMagazine : ReloadStage
 	{
 		m_pistolMagazine.LoadBullet(m_bullet);
 		m_bullet = null;
+
+		if (m_pistolMagazine.IsFullyLoaded)
+			Finish();
 		//DestroyBullet();
 	}
 
