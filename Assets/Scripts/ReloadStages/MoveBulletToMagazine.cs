@@ -7,6 +7,7 @@ public class MoveBulletToMagazine : ReloadStage
 	public GameObject m_ammoBox;
 	public GameObject m_magazine;
 	public GameObject m_bulletPrefab;
+	public PistolMagazine m_pistolMagazine;
 	#endregion
 
 	private Drag m_drag;
@@ -64,7 +65,9 @@ public class MoveBulletToMagazine : ReloadStage
 
 	private void HandleDragOver(Vector3 position)
 	{
-		DestroyBullet();
+		m_pistolMagazine.LoadBullet(m_bullet);
+		m_bullet = null;
+		//DestroyBullet();
 	}
 
 	private void HandleDragEnded(Vector3 position)

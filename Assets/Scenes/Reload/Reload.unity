@@ -272,6 +272,7 @@ MonoBehaviour:
   m_ammoBox: {fileID: 1309160144}
   m_magazine: {fileID: 2032193723}
   m_bulletPrefab: {fileID: 100000, guid: b6a53d2c8df67cd43bef1881645e7301, type: 3}
+  m_pistolMagazine: {fileID: 2032193726}
 --- !u!1 &523063039 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: 0d26b28152d60564699fde4a4c1442ac, type: 3}
@@ -477,6 +478,60 @@ Transform:
   - {fileID: 696641404}
   m_Father: {fileID: 1751629128}
   m_RootOrder: 4
+--- !u!1 &943739277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 943739278}
+  m_Layer: 0
+  m_Name: FirstBulletTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &943739278
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 943739277}
+  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
+  m_LocalPosition: {x: 16.0400009, y: -.540000021, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2032193725}
+  m_RootOrder: 0
+--- !u!1 &1091103925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1091103926}
+  m_Layer: 0
+  m_Name: SecondBulletTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1091103926
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091103925}
+  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
+  m_LocalPosition: {x: 11.8900003, y: -.540000021, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2032193725}
+  m_RootOrder: 1
 --- !u!1 &1104400175
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +880,33 @@ MonoBehaviour:
   m_gunPartMovement: {fileID: 0}
   m_animator: {fileID: 268126470}
   m_triggerName: MoveCamera01
+--- !u!1 &1569504450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1569504451}
+  m_Layer: 0
+  m_Name: BulletsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1569504451
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1569504450}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2032193725}
+  m_RootOrder: 2
 --- !u!1 &1659842799
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +1028,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 0d26b28152d60564699fde4a4c1442ac, type: 3}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0d26b28152d60564699fde4a4c1442ac, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1091,6 +1177,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 35.653553, y: 16.5033665, z: 9.0820055}
   m_Center: {x: -1.29854286, y: 1.60770142e-05, z: 7.58101987e-06}
+--- !u!4 &2032193725 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400002, guid: 0d26b28152d60564699fde4a4c1442ac, type: 3}
+  m_PrefabInternal: {fileID: 1751629126}
+--- !u!114 &2032193726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2032193723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee12eb1e9621c47a3a1b5aa5c0c1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_firstBulletTransform: {fileID: 943739278}
+  m_secondBulletTransform: {fileID: 1091103926}
+  m_bulletsContainer: {fileID: 1569504451}
 --- !u!95 &2032193727
 Animator:
   serializedVersion: 3
