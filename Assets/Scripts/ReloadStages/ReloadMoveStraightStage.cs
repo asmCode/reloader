@@ -41,9 +41,9 @@ public class ReloadMoveStraightStage : ReloadStage
 
 	private void OnDisable()
 	{
-		DragGestureDetector.Instance().DragStarted -= HandleDragStarted;
-		DragGestureDetector.Instance().DragMoved -= HandleDragMoved;
-		DragGestureDetector.Instance().DragEnded -= HandleDragEnded;
+		//DragGestureDetector.Instance().DragStarted -= HandleDragStarted;
+		//DragGestureDetector.Instance().DragMoved -= HandleDragMoved;
+		//DragGestureDetector.Instance().DragEnded -= HandleDragEnded;
 	}
 
 	private void OnFinished()
