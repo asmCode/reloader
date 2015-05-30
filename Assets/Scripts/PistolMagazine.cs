@@ -12,10 +12,25 @@ public class PistolMagazine : MonoBehaviour
 
 	public void LoadBullet(GameObject bullet)
 	{
+		if (m_bullets.Count > 0)
+			ShiftBulletsContainerDown();
+
 		m_bullets.Add(bullet);
 
 		bullet.transform.parent = m_bulletsContainer;
 		bullet.transform.position = m_firstBulletTransform.position;
 		bullet.transform.rotation = m_firstBulletTransform.rotation;
+	}
+
+	private void ShiftBulletsContainerDown()
+	{
+		Vector3 position = m_bulletsContainer.transform.position;
+		position -= GetBulletShiftVector();
+		m_bulletsContainer.transform.position = position;
+	}
+
+	private Vector3 GetBulletShiftVector()
+	{
+		return m_firstBulletTransform.position - m_secondBulletTransform.position;
 	}
 }
