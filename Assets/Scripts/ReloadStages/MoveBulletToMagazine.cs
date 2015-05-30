@@ -35,7 +35,13 @@ public class MoveBulletToMagazine : ReloadStage
 
 	private void CreateBullet(Vector3 position)
 	{
-		m_bullet = (GameObject)Instantiate(m_bulletPrefab, position, Quaternion.identity);
+		m_bullet = (GameObject)Instantiate(m_bulletPrefab, position, Quaternion.Euler(26.5f, 115.6f, 78.4f));
+	}
+
+	private void DestroyBullet()
+	{
+		if (m_bullet != null)
+			Destroy(m_bullet.gameObject);
 	}
 
 	private void SetBulletPosition(Vector3 position)
@@ -58,10 +64,11 @@ public class MoveBulletToMagazine : ReloadStage
 
 	private void HandleDragOver(Vector3 position)
 	{
-		Debug.Log("cipsko");
+		DestroyBullet();
 	}
 
 	private void HandleDragEnded(Vector3 position)
 	{
+		DestroyBullet();
 	}
 }

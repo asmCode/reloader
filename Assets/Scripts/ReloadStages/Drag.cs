@@ -83,7 +83,7 @@ public class Drag
 
 	private Vector3 ScreenToWorld(Vector3 screenPosition)
 	{
-		return Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 200));
+		return Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, -(Camera.main.transform.position.z - m_sourceTransform.position.z)));
 	}
 
 	private bool HitTest(Vector3 screenPosition, Collider collider)
