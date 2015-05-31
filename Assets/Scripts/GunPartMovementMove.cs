@@ -10,6 +10,20 @@ public class GunPartMovementMove : GunPartMovement
 
 	void Start()
 	{
+	}
+
+	public override void Enter()
+	{
+		Animator animator = m_gunPart.GetComponent<Animator>();
+		if (animator != null)
+		{
+			Vector3 position = m_gunPart.transform.position;
+			Quaternion rotation = m_gunPart.transform.rotation;
+			animator.enabled = false;
+			//m_gunPart.transform.position = position;
+			//m_gunPart.transform.rotation = rotation;
+		}
+
 		m_basePosition = m_gunPart.position;
 	}
 

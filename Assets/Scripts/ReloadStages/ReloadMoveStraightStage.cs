@@ -25,11 +25,21 @@ public class ReloadMoveStraightStage : ReloadStage
 		SetProgress(m_reloadProgress);
 
 		m_gunPartMovement.SetReloadProgress(m_reloadProgress);
+
+		if (m_reloadProgress >= 1.0f)
+			Finish();
+	}
+
+	public override void Enter()
+	{
+		if (m_gunPartMovement != null)
+			m_gunPartMovement.Enter();
+
+		m_baseObjectToMovePosition = m_objectToMove.gameObject.transform.position;
 	}
 
 	private void Start()
 	{
-		m_baseObjectToMovePosition = m_objectToMove.gameObject.transform.position;
 	}
 
 	private void OnEnable()
