@@ -3,15 +3,27 @@ using System.Collections;
 
 public class ReloadMoveStraightStage : ReloadStage
 {
-	public Collider m_objectToMove;
-	public Transform m_moveTarget;
+	public Transform m_source;
+	public Transform m_destination;
 
-	private Vector3 m_baseObjectToMovePosition;
+	private MoveStraight m_moveStraight;
 	private float m_reloadProgress;
 	private bool m_isMoving;
-	private Vector3 m_moveStartPosition;
 
-	private float m_goingBackCurrentVelocity;
+	private void Awake()
+	{
+	}
+
+	private void OnEnable()
+	{
+	}
+
+	private void OnDisable()
+	{
+		//m_moveStraight.Started -= HandleMoveStraightStarted;
+		//m_moveStraight.Moved -= HandleMoveStraightMoved;
+	//	m_moveStraight.Ended -= HandleMoveStraightEnded;
+	}
 
 	public override void Update()
 	{
@@ -35,25 +47,10 @@ public class ReloadMoveStraightStage : ReloadStage
 		if (m_gunPartMovement != null)
 			m_gunPartMovement.Enter();
 
-		m_baseObjectToMovePosition = m_objectToMove.gameObject.transform.position;
-	}
-
-	private void Start()
-	{
-	}
-
-	private void OnEnable()
-	{
-		DragGestureDetector.Instance().DragStarted += HandleDragStarted;
-		DragGestureDetector.Instance().DragMoved += HandleDragMoved;
-		DragGestureDetector.Instance().DragEnded += HandleDragEnded;
-	}
-
-	private void OnDisable()
-	{
-		//DragGestureDetector.Instance().DragStarted -= HandleDragStarted;
-		//DragGestureDetector.Instance().DragMoved -= HandleDragMoved;
-		//DragGestureDetector.Instance().DragEnded -= HandleDragEnded;
+		m_moveStraight = new MoveStraight(m_source, m_destination);
+		m_moveStraight.Started += HandleMoveStraightStarted;
+		m_moveStraight.Moved += HandleMoveStraightMoved;
+		m_moveStraight.Ended += HandleMoveStraightEnded;
 	}
 
 	private void OnFinished()
@@ -61,50 +58,18 @@ public class ReloadMoveStraightStage : ReloadStage
 		Finish();
 	}
 
-	private void HandleDragStarted(Vector3 touchPosition)
+	private void HandleMoveStraightStarted(Vector3 screenPosition)
 	{
-		RaycastHit hit;
-		if (m_objectToMove.Raycast(Camera.main.ScreenPointToRay(touchPosition), out hit, float.PositiveInfinity))
-		{
-			m_isMoving = true;
-			m_moveStartPosition = touchPosition;
-			//m_baseObjectToMovePosition = m_objectToMove.gameObject.transform.position;
-		}
+		m_isMoving = true;
 	}
 
-	private void HandleDragMoved(Vector3 touchPosition)
+	private void HandleMoveStraightMoved(float progress)
 	{
-		if (!m_isMoving)
-			return;
-
-		Vector3 fullMoveVector =
-			GetMoveTargetScreenPosition() -
-			GetObjectToMoveScreenPosition();
-
-		touchPosition.z = 0.0f;
-		m_moveStartPosition.z = 0.0f;
-
-		Vector3 move = touchPosition - m_moveStartPosition;
-
-		m_reloadProgress = Vector3.Dot(fullMoveVector.normalized, move) / fullMoveVector.magnitude;
+		m_reloadProgress = progress;
 	}
 
-	private void HandleDragEnded(Vector3 touchPosition)
+	private void HandleMoveStraightEnded(Vector3 screenPosition)
 	{
 		m_isMoving = false;
-	}
-
-	private Vector3 GetObjectToMoveScreenPosition()
-	{
-		Vector3 position = Camera.main.WorldToScreenPoint(m_baseObjectToMovePosition);
-		position.z = 0.0f;
-		return position;
-	}
-
-	private Vector3 GetMoveTargetScreenPosition()
-	{
-		Vector3 position = Camera.main.WorldToScreenPoint(m_moveTarget.position);
-		position.z = 0.0f;
-		return position;
 	}
 }

@@ -169,8 +169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gunPartMovement: {fileID: 1406301060}
-  m_objectToMove: {fileID: 2032193724}
-  m_moveTarget: {fileID: 300452924}
+  m_source: {fileID: 2032193725}
+  m_destination: {fileID: 300452924}
 --- !u!1 &268126464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,8 +1042,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gunPartMovement: {fileID: 1995048336}
-  m_objectToMove: {fileID: 1751629130}
-  m_moveTarget: {fileID: 864013852}
+  m_source: {fileID: 1751629127}
+  m_destination: {fileID: 864013852}
 --- !u!1 &1735984614
 GameObject:
   m_ObjectHideFlags: 0
