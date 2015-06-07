@@ -20,9 +20,6 @@ public class ReloadMoveStraightStage : ReloadStage
 
 	private void OnDisable()
 	{
-		//m_moveStraight.Started -= HandleMoveStraightStarted;
-		//m_moveStraight.Moved -= HandleMoveStraightMoved;
-	//	m_moveStraight.Ended -= HandleMoveStraightEnded;
 	}
 
 	public override void Update()
@@ -47,10 +44,20 @@ public class ReloadMoveStraightStage : ReloadStage
 		if (m_gunPartMovement != null)
 			m_gunPartMovement.Enter();
 
-		m_moveStraight = new MoveStraight(m_source, m_destination);
+		m_moveStraight = new MoveStraight();
 		m_moveStraight.Started += HandleMoveStraightStarted;
 		m_moveStraight.Moved += HandleMoveStraightMoved;
 		m_moveStraight.Ended += HandleMoveStraightEnded;
+
+		m_moveStraight.Start(m_source, m_destination);
+	}
+
+	public override void Leave()
+	{
+		m_moveStraight.Started -= HandleMoveStraightStarted;
+		m_moveStraight.Moved -= HandleMoveStraightMoved;
+		m_moveStraight.Ended -= HandleMoveStraightEnded;
+		m_moveStraight.Dispose();
 	}
 
 	private void OnFinished()

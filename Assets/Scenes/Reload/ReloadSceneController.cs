@@ -5,8 +5,6 @@ public class ReloadSceneController : MonoBehaviour
 {
 	public Gun m_gun;
 
-	private float m_reloadProgress;
-
 	void Start()
 	{
 		m_gun.StartReloading();
@@ -14,5 +12,10 @@ public class ReloadSceneController : MonoBehaviour
 
 	void Update()
 	{
+	}
+
+	public void RestartButtonPressed()
+	{
+		Application.LoadLevel(Application.loadedLevel);
 	}
 }

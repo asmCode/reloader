@@ -8,24 +8,36 @@ public class MoveStraight
 	private Vector3 m_touchStartScreenPosition;
 	private Vector3 m_srcWorldPosition;
 	private Vector3 m_dstWorldPosition;
+	private Vector3 m_lastTouchPosition;
 
 	public event System.Action<Vector3> Started;
 	public event System.Action<float> Moved;
 	public event System.Action<Vector3> Ended;
 
-	public MoveStraight(Transform source, Transform destination)
+	public MoveStraight()
+	{
+		DragGestureDetector.Instance().DragStarted += HandleDragStarted;
+		DragGestureDetector.Instance().DragMoved += HandleDragMoved;
+		DragGestureDetector.Instance().DragEnded += HandleDragEnded;
+	}
+
+	public void Start(Transform source, Transform destination)
 	{
 		m_sourceCollider = source.GetComponent<Collider>();
 
 		m_srcWorldPosition = source.position;
 		m_dstWorldPosition = destination.position;
 
-		DragGestureDetector.Instance().DragStarted += HandleDragStarted;
-		DragGestureDetector.Instance().DragMoved += HandleDragMoved;
-		DragGestureDetector.Instance().DragEnded += HandleDragEnded;
+		if (m_isMoving)
+			OnStarted(m_lastTouchPosition);
 	}
 
-	private void Dispose()
+	public void SetDestination(Transform destination)
+	{
+		m_dstWorldPosition = destination.position;
+	}
+
+	public void Dispose()
 	{
 		DragGestureDetector.Instance().DragStarted -= HandleDragStarted;
 		DragGestureDetector.Instance().DragMoved -= HandleDragMoved;
@@ -41,19 +53,18 @@ public class MoveStraight
 
 	private void HandleDragStarted(Vector3 touchPosition)
 	{
+		m_lastTouchPosition = touchPosition;
+
 		if (TapUtils.HitTest(touchPosition, m_sourceCollider))
 		{
-			m_isMoving = true;
-			m_touchStartScreenPosition = touchPosition;
-			m_touchStartScreenPosition.z = 0.0f;
-
-			if (Started != null)
-				Started(touchPosition);
+			OnStarted(touchPosition);
 		}
 	}
 
 	private void HandleDragMoved(Vector3 touchPosition)
 	{
+		m_lastTouchPosition = touchPosition;
+
 		if (!m_isMoving)
 			return;
 
@@ -71,9 +82,21 @@ public class MoveStraight
 
 	private void HandleDragEnded(Vector3 touchPosition)
 	{
+		m_lastTouchPosition = touchPosition;
+
 		m_isMoving = false;
 
 		if (Ended != null)
 			Ended(touchPosition);
+	}
+
+	private void OnStarted(Vector3 touchPosition)
+	{
+		m_isMoving = true;
+		m_touchStartScreenPosition = touchPosition;
+		m_touchStartScreenPosition.z = 0.0f;
+
+		if (Started != null)
+			Started(touchPosition);
 	}
 }

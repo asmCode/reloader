@@ -19,7 +19,7 @@ public class MoveBulletToMagazine : ReloadStage
 		m_drag = new Drag(m_ammoBoxObject, m_magazineObject);
 	}
 
-	private void OnEnable()
+	public override void Enter()
 	{
 		m_drag.DragStarted += HandleDragStarted;
 		m_drag.DragMoved += HandleDragMoved;
@@ -27,12 +27,14 @@ public class MoveBulletToMagazine : ReloadStage
 		m_drag.DragEnded += HandleDragEnded;
 	}
 
-	private void OnDisable()
+	public override void Leave()
 	{
 		m_drag.DragStarted -= HandleDragStarted;
 		m_drag.DragMoved -= HandleDragMoved;
 		m_drag.DragOver -= HandleDragOver;
 		m_drag.DragEnded -= HandleDragEnded;
+
+		m_drag.Dispose();
 	}
 
 	private void CreateBullet(Vector3 position)

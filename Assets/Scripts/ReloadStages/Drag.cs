@@ -29,7 +29,7 @@ public class Drag
 		DragGestureDetector.Instance().DragEnded += HandleDragEnded;
 	}
 
-	private void Dispose()
+	public void Dispose()
 	{
 		DragGestureDetector.Instance().DragStarted -= HandleDragStarted;
 		DragGestureDetector.Instance().DragMoved -= HandleDragMoved;
