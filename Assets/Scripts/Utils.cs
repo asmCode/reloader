@@ -12,4 +12,14 @@ public class Utils
 
 		return start + change * Mathf.Sign(diff);
 	}
+
+	public static float GetPerpendicularDistance(Vector3 p1, Vector3 p1Norm, Vector3 p2)
+	{
+		if (p1 == p2)
+			return 0.0f;
+
+		Vector3 dir = p2 - p1;
+
+		return Vector3.Dot(p1Norm, dir);
+	}
 }

@@ -9,6 +9,7 @@ public class Drag
 	private Transform m_destinationTransform;
 	private bool m_isMoving;
 	private bool m_isOver;
+	private float m_distanceFromCamera;
 
 	public event System.Action<Vector3> DragStarted;
 	public event System.Action<Vector3> DragMoved;
@@ -41,6 +42,11 @@ public class Drag
 		if (HitTest(touchPosition, m_sourceObject))
 		{
 			m_isMoving = true;
+
+			m_distanceFromCamera = Utils.GetPerpendicularDistance(
+				Camera.main.transform.position,
+				Camera.main.transform.forward,
+				m_sourceTransform.position);
 
 			if (DragStarted != null)
 				DragStarted(ScreenToWorld(touchPosition));
@@ -83,7 +89,7 @@ public class Drag
 
 	private Vector3 ScreenToWorld(Vector3 screenPosition)
 	{
-		return Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, -(Camera.main.transform.position.z - m_sourceTransform.position.z)));
+		return Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, m_distanceFromCamera));
 	}
 
 	private bool HitTest(Vector3 screenPosition, Collider collider)
