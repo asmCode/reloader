@@ -22,6 +22,9 @@ public class MoveMagazine : ReloadStage
 		m_drag.DragMoved += HandleDragMoved;
 		m_drag.DragOver += HandleDragOver;
 		m_drag.DragEnded += HandleDragEnded;
+
+		m_magazine.transform.position = m_srcMagazineLocation.transform.position;
+		m_magazine.transform.rotation = m_srcMagazineLocation.transform.rotation;
 	}
 
 	public override void Leave()

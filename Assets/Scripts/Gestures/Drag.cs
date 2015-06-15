@@ -10,11 +10,17 @@ public class Drag
 	private bool m_isMoving;
 	private bool m_isOver;
 	private float m_distanceFromCamera;
+	private System.DateTime m_startTime;
 
 	public event System.Action<Vector3> DragStarted;
 	public event System.Action<Vector3> DragMoved;
 	public event System.Action<Vector3> DragOver;
 	public event System.Action<Vector3> DragEnded;
+
+	public float DragDuration
+	{
+		get { return (float)(System.DateTime.Now - m_startTime).TotalSeconds; }
+	}
 
 	public Drag(
 		GameObject sourceObject,
@@ -41,6 +47,8 @@ public class Drag
 	{
 		if (HitTest(touchPosition, m_sourceObject))
 		{
+			m_startTime = System.DateTime.Now;
+
 			m_isMoving = true;
 
 			m_distanceFromCamera = Utils.GetPerpendicularDistance(
