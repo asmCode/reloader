@@ -5,6 +5,7 @@ public class AnimationStage : ReloadStage
 {
 	public Animator m_animator;
 	public string m_triggerName;
+	public bool m_manualFinish;
 
 	private bool m_endOfAnimFired;
 
@@ -17,7 +18,16 @@ public class AnimationStage : ReloadStage
 
 		m_animator.SetTrigger(m_triggerName);
 
-		Finish();
+		if (m_manualFinish)
+			m_animator.gameObject.GetComponent<AnimationTriggerable>().AnimationTriggerFired += HandleAnimationTriggerFired;
+		else
+			Finish();
+	}
+
+	public override void Leave()
+	{
+		if (m_manualFinish)
+			m_animator.gameObject.GetComponent<AnimationTriggerable>().AnimationTriggerFired -= HandleAnimationTriggerFired;
 	}
 	
 	/*
@@ -36,5 +46,10 @@ public class AnimationStage : ReloadStage
 	{
 		//Debug.Log("sssssssssssssss");
 		//m_animator.enabled = false;
+	}
+
+	private void HandleAnimationTriggerFired()
+	{
+		Finish();
 	}
 }

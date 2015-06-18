@@ -18,13 +18,19 @@ public class MoveMagazine : ReloadStage
 
 	public override void Enter()
 	{
+		m_magazine.GetComponent<Animator>().StopPlayback();
+		m_magazine.GetComponent<Animator>().enabled = false;
+
 		m_drag.DragStarted += HandleDragStarted;
 		m_drag.DragMoved += HandleDragMoved;
 		m_drag.DragOver += HandleDragOver;
 		m_drag.DragEnded += HandleDragEnded;
 
-		m_magazine.transform.position = m_srcMagazineLocation.transform.position;
-		m_magazine.transform.rotation = m_srcMagazineLocation.transform.rotation;
+		NextFrameTask.Instance().SetNextFrameTask(t =>
+		{
+			m_magazine.transform.position = m_srcMagazineLocation.transform.position;
+			m_magazine.transform.rotation = m_srcMagazineLocation.transform.rotation;
+		});
 	}
 
 	public override void Leave()
